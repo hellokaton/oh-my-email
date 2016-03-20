@@ -19,8 +19,6 @@ public class MailMessage {
 	// 附件列表
 	private List<File> attachs;
 	
-	private boolean isHtml = false;
-	
 	private String content;
 	
 	private String subject;
@@ -84,12 +82,6 @@ public class MailMessage {
 		return this;
 	}
 	
-	public MailMessage content(String content, boolean isHtml) {
-		this.content = content;
-		this.isHtml = isHtml;
-		return this;
-	}
-	
 	public MailMessage addFile(String filePath) {
 		File file = new File(filePath);
 		return addFile(file);
@@ -130,10 +122,6 @@ public class MailMessage {
 		return date;
 	}
 	
-	public boolean isHtml() {
-		return isHtml;
-	}
-
 	public List<String> toList() {
 		return toList;
 	}

@@ -28,9 +28,8 @@ public class MailSenderImpl implements MailSender {
 		this.debug = debug;
 		this.props = new Properties();
 		this.props.setProperty("mail.transport.protocol", "smtp");
-		this.props.setProperty("mail.smtp.ssl.checkserveridentity", "false");
 		this.props.setProperty("mail.smtp.auth", "true");
-		this.props.put("mail.smtp.starttls.enable", "true");
+		this.props.setProperty("mail.smtp.starttls.enable", "true");
 	}
 	
 	@Override
@@ -98,8 +97,6 @@ public class MailSenderImpl implements MailSender {
 	@Override
 	public MailSender host(String host) {
 		this.host = host;
-		this.props.setProperty("mail.transport.protocol", host);
-		this.props.setProperty("mail.smtp.ssl.trust", host);
 		return this;
 	}
 	

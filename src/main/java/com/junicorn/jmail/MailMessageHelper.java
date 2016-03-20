@@ -53,12 +53,8 @@ public class MailMessageHelper {
         MimeMultipart allPart = new MimeMultipart("mixed");  
         
         // 文本内容
-        if(!mailMessage.isHtml()){
-        	mimeMessage.setText(mailMessage.content());
-        } else {
-        	MimeBodyPart content = createContent(mailMessage.content());
-            allPart.addBodyPart(content);  
-		}
+    	MimeBodyPart content = createContent(mailMessage.content());
+        allPart.addBodyPart(content);  
         
         // 附件
         List<File> attachs = mailMessage.attachs();
