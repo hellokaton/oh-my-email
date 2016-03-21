@@ -6,6 +6,8 @@ public interface MailSender {
 
 	void send(MailMessage mailMessage) throws MessagingException;
 	
+	void send(MailMessage mailMessage, boolean isAsync) throws MessagingException;
+	
 	void send(MailMessage... mailMessages) throws MessagingException;
 	
 	MailSender host(String host);

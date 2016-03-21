@@ -26,10 +26,18 @@
 			<version>1.5.0-b01</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.mitchellbosecke</groupId>
-		    <artifactId>pebble</artifactId>
-		    <version>2.2.0</version>
+			<groupId>com.mitchellbosecke</groupId>
+			<artifactId>pebble</artifactId>
+			<version>2.2.0</version>
+			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.subchen</groupId>
+			<artifactId>jetbrick-template</artifactId>
+			<version>2.1.2</version>
+			<scope>provided</scope>
+		</dependency>
+
 
 	</dependencies>
 
