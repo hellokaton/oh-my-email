@@ -1,4 +1,4 @@
-package com.junicorn.jmail;
+package com.jmail;
 
 import java.io.File;
 import java.util.List;
@@ -12,7 +12,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.junicorn.jmail.exception.MailException;
+import com.jmail.exception.MailException;
 
 public class MailMessageHelper {
 	

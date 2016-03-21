@@ -1,4 +1,4 @@
-package com.junicorn.jmail;
+package com.jmail;
 
 import java.io.File;
 import java.util.ArrayList;

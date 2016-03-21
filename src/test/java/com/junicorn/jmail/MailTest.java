@@ -2,6 +2,10 @@ package com.junicorn.jmail;
 
 import javax.mail.MessagingException;
 
+import com.jmail.MailMessage;
+import com.jmail.MailSender;
+import com.jmail.MailSenderImpl;
+
 public class MailTest {
 
 	public static void main(String[] args) {

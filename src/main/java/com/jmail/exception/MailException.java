@@ -1,4 +1,4 @@
-package com.junicorn.jmail.exception;
+package com.jmail.exception;
 
 public class MailException extends RuntimeException {
 

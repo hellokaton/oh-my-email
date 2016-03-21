@@ -1,4 +1,4 @@
-package com.junicorn.jmail;
+package com.jmail;
 
 import javax.mail.MessagingException;
 

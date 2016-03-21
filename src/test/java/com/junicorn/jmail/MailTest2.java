@@ -8,6 +8,9 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 
+import com.jmail.MailMessage;
+import com.jmail.MailSender;
+import com.jmail.MailSenderImpl;
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;

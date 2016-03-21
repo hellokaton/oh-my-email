@@ -6,6 +6,10 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 
+import com.jmail.MailMessage;
+import com.jmail.MailSender;
+import com.jmail.MailSenderImpl;
+
 import jetbrick.template.JetEngine;
 import jetbrick.template.JetTemplate;
 
