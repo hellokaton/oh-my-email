@@ -9,6 +9,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
+import blade.kit.Assert;
+import blade.kit.StringKit;
+import blade.kit.config.Config;
+import blade.kit.config.loader.ConfigLoader;
 import blade.kit.logging.Logger;
 import blade.kit.logging.LoggerFactory;
 
@@ -40,12 +44,14 @@ public class MailSenderImpl implements MailSender {
 	
 	@Override
 	public MailSender protocol(String protocol) {
+		Assert.notEmpty(protocol, "protocol not is empty!");
 		this.props.setProperty("mail.transport.protocol", protocol);  
 		return this;
 	}
 	
 	@Override
 	public void send(MailMessage... mailMessages) throws MessagingException {
+		Assert.notEmpty(mailMessages, "mailMessages not is empty!");
 		for(MailMessage mailMessage : mailMessages){
 			send(mailMessage);
 		}
@@ -53,6 +59,9 @@ public class MailSenderImpl implements MailSender {
 	
 	@Override
 	public void send(MailMessage mailMessage) throws MessagingException {
+		
+		Assert.notNull(mailMessage, "mailMessage not is null!");
+		
 		Session session = Session.getInstance(props);
 		
 		// 启动JavaMail调试功能，可以返回与SMTP服务器交互的命令信息  
@@ -99,19 +108,21 @@ public class MailSenderImpl implements MailSender {
 	
 	@Override
 	public MailSender username(String username) {
+		Assert.notEmpty(username, "username not is empty!");
 		this.username = username;
 		return this;
 	}
 
 	@Override
 	public MailSender password(String password) {
+		Assert.notEmpty(password, "password not is empty!");
 		this.password = password;
 		return this;
 	}
 	
 	@Override
 	public MailSender auth(boolean auth) {
-		this.props.setProperty("mail.smtp.auth", auth+""); 
+		this.props.put("mail.smtp.auth", auth); 
 		return this;
 	}
 	
@@ -123,12 +134,38 @@ public class MailSenderImpl implements MailSender {
 	
 	@Override
 	public MailSender host(String host) {
+		Assert.notEmpty(host, "host not is empty!");
 		this.host = host;
 		return this;
 	}
 	
 	@Override
+	public MailSender port(int port) {
+		this.props.put("mail.smtp.port", port);
+		return this;
+	}
+	
+	@Override
 	public MailSender load(String mailProperties) {
+		Config config = ConfigLoader.load(mailProperties);
+		if(null != config){
+			String user = config.getString("mail.user");
+			String pass = config.getString("mail.pass");
+			String host = config.getString("mail.smtp.host");
+			Integer port = config.getInt("mail.smtp.port");
+			if(StringKit.isNotBlank(user)){
+				this.username(user);
+			}
+			if(StringKit.isNotBlank(pass)){
+				this.password(pass);
+			}
+			if(StringKit.isNotBlank(host)){
+				this.host(host);
+			}
+			if(null != port && port > 0){
+				this.port(port);
+			}
+		}
 		return this;
 	}
 	

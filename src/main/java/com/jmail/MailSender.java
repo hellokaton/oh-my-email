@@ -12,6 +12,8 @@ public interface MailSender {
 	
 	MailSender host(String host);
 	
+	MailSender port(int port);
+	
 	MailSender username(String username);
 	
 	MailSender password(String password);
