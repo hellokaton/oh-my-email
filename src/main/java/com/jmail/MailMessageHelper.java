@@ -1,6 +1,7 @@
 package com.jmail;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.activation.DataHandler;
@@ -11,15 +12,28 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import com.jmail.exception.MailException;
+
+import blade.kit.StringKit;
 
 public class MailMessageHelper {
 	
 	public static void copy(MimeMessage mimeMessage, MailMessage mailMessage) throws MessagingException {
 		
 		//设置发件人
-		mimeMessage.setFrom(new InternetAddress(mailMessage.from()));
+		if(StringKit.isBlank(mailMessage.nickName())){
+			mimeMessage.setFrom(new InternetAddress(mailMessage.from()));
+		} else {
+			String nickName = "";  
+	        try {  
+	        	nickName = MimeUtility.encodeText(mailMessage.nickName());  
+	        } catch (UnsupportedEncodingException e) {  
+	            e.printStackTrace();  
+	        }
+			mimeMessage.setFrom(new InternetAddress(nickName +" <" + mailMessage.from() + ">"));  
+		}
         
 		//设置收件人
 		List<String> to = mailMessage.toList();

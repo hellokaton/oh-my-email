@@ -12,7 +12,11 @@ import blade.kit.Assert;
 
 public class MailMessage {
 
+	// 发件人邮箱
 	private String from;
+	
+	// 发件人昵称（可选）
+	private String nickName;
 	
 	// 收件人列表
 	private List<String> toList;
@@ -38,6 +42,14 @@ public class MailMessage {
 	
 	public MailMessage from(String from) {
 		Assert.notEmpty(from, "from mail not is empty!");
+		this.from = from;
+		return this;
+	}
+	
+	public MailMessage from(String nickName, String from) {
+		Assert.notEmpty(nickName, "nick name not is empty!");
+		Assert.notEmpty(from, "from mail not is empty!");
+		this.nickName = nickName;
 		this.from = from;
 		return this;
 	}
@@ -131,6 +143,10 @@ public class MailMessage {
 
 	public String from() {
 		return from;
+	}
+	
+	public String nickName() {
+		return nickName;
 	}
 	
 	public String content() {
