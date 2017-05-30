@@ -5,10 +5,7 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author biezhi
@@ -100,7 +97,8 @@ public class OhMyEmail {
     }
 
     public OhMyEmail replyTo(String... replyTo) throws MessagingException {
-        msg.setReplyTo(InternetAddress.parse(String.join(",", replyTo)));
+        String result = Arrays.asList(replyTo).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
+        msg.setReplyTo(InternetAddress.parse(result));
         return this;
     }
 
@@ -110,7 +108,8 @@ public class OhMyEmail {
     }
 
     public OhMyEmail to(String... to) throws Exception {
-        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(String.join(",", to)));
+        String result = Arrays.asList(to).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
+        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(result));
         return this;
     }
 
@@ -120,7 +119,8 @@ public class OhMyEmail {
     }
 
     public OhMyEmail cc(String... cc) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(String.join(",", cc)));
+        String result = Arrays.asList(cc).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
+        msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(result));
         return this;
     }
 
@@ -130,7 +130,8 @@ public class OhMyEmail {
     }
 
     public OhMyEmail bcc(String... bcc) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.BCC, InternetAddress.parse(String.join(",", bcc)));
+        String result = Arrays.asList(bcc).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
+        msg.addRecipients(Message.RecipientType.BCC, InternetAddress.parse(result));
         return this;
     }
 
