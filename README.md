@@ -20,7 +20,7 @@
 @Before
 public void before() throws GeneralSecurityException {
     // 配置，一次即可
-    OhMyEmail.config(SMTP_QQ(), "biezhi.me@qq.com", "eshgwfelncgsbdbh");
+    OhMyEmail.config(SMTP_QQ(), "biezhi.me@qq.com", "your@password");
 }
 
 @Test
