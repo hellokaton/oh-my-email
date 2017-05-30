@@ -1,57 +1,58 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.bladejava</groupId>
-	<artifactId>jmail</artifactId>
-	<version>0.0.3</version>
-	<packaging>jar</packaging>
+    <groupId>com.bladejava</groupId>
+    <artifactId>oh-my-email</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
 
-	<name>jmail</name>
-	<url>http://maven.apache.org</url>
-	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <name>oh-my-email</name>
+    <url>http://maven.apache.org</url>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.bladejava</groupId>
-			<artifactId>blade-kit</artifactId>
-			<version>1.2.9</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.5.0-b01</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mitchellbosecke</groupId>
-			<artifactId>pebble</artifactId>
-			<version>2.2.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.subchen</groupId>
-			<artifactId>jetbrick-template</artifactId>
-			<version>2.1.2</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<build>
-		<finalName>jmail</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <dependencies>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.5.0-b01</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mitchellbosecke</groupId>
+            <artifactId>pebble</artifactId>
+            <version>2.2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.subchen</groupId>
+            <artifactId>jetbrick-template</artifactId>
+            <version>2.1.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>oh-my-email</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

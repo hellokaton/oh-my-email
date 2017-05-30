@@ -12,27 +12,87 @@
 - 支持抄送／HTML／附件
 - 支持异步发送
 - 支持邮件模板
-- 可能是代码量最小的库了😂 非常好维护
-
+- 可能是代码量最小的库了，200多行 😂 非常好维护
 
 ## 举个栗子🌰
 
 ```java
-try {
-	MailSender mailSender = new MailSenderImpl();
-	MailMessage mailMessage = new MailMessage();
+@Before
+public void before() throws GeneralSecurityException {
+    // 配置，一次即可
+    OhMyEmail.config(SMTP_QQ(), "biezhi.me@qq.com", "eshgwfelncgsbdbh");
+}
 
-	mailMessage
-	.subject("hi，您有一封注册邮件！！！")
-	.from("jelly_8090@163.com")
-	.content("<p>hello</p><a href='http://www.baidu.com'>world</a>")
-	.addTo("921293209@qq.com")
-	.addFile("/Users/Anne/Documents/3849072.jpg", "/Users/Anne/Documents/vps.md");
-	
-	mailSender.debug(true).host("smtp.163.com").username("jelly_8090@163.com").password("###");
-	mailSender.send(mailMessage);
-} catch (MessagingException e) {
-	e.printStackTrace();
+@Test
+public void testSendText() throws MessagingException {
+    OhMyEmail.subject("这是一封测试TEXT邮件")
+            .from("王爵的QQ邮箱")
+            .to("921293209@qq.com")
+            .text("信件内容")
+            .send();
+}
+
+@Test
+public void testSendHtml() throws MessagingException {
+    OhMyEmail.subject("这是一封测试HTML邮件")
+            .from("王爵的QQ邮箱")
+            .to("921293209@qq.com")
+            .html("<h1 font=red>信件内容</h1>")
+            .send();
+}
+
+@Test
+public void testSendAttach() throws MessagingException {
+    OhMyEmail.subject("这是一封测试附件邮件")
+            .from("王爵的QQ邮箱")
+            .to("921293209@qq.com")
+            .html("<h1 font=red>信件内容</h1>")
+            .attach(new File("/Users/biezhi/Downloads/hello.jpeg"), "测试图片.jpeg")
+            .send();
+}
+
+@Test
+public void testPebble() throws IOException, PebbleException, MessagingException {
+    PebbleEngine engine = new PebbleEngine.Builder().build();
+    PebbleTemplate compiledTemplate = engine.getTemplate("register.html");
+
+    Map<String, Object> context = new HashMap<String, Object>();
+    context.put("username", "biezhi");
+    context.put("email", "admin@java-china.org");
+
+    Writer writer = new StringWriter();
+    compiledTemplate.evaluate(writer, context);
+
+    String output = writer.toString();
+    System.out.println(output);
+
+    OhMyEmail.subject("这是一封测试Pebble模板邮件")
+            .from("王爵的QQ邮箱")
+            .to("921293209@qq.com")
+            .html(output)
+            .send();
+}
+
+@Test
+public void testJetx() throws IOException, PebbleException, MessagingException {
+    JetEngine engine = JetEngine.create();
+    JetTemplate template = engine.getTemplate("/register.jetx");
+
+    Map<String, Object> context = new HashMap<String, Object>();
+    context.put("username", "biezhi");
+    context.put("email", "admin@java-china.org");
+    context.put("url", "<a href='http://java-china.org'>https://java-china.org/active/asdkjajdasjdkaweoi</a>");
+
+    StringWriter writer = new StringWriter();
+    template.render(context, writer);
+    String output = writer.toString();
+    System.out.println(output);
+
+    OhMyEmail.subject("这是一封测试Jetx模板邮件")
+            .from("王爵的QQ邮箱")
+            .to("921293209@qq.com")
+            .html(output)
+            .send();
 }
 ```
 
@@ -53,43 +113,7 @@ try {
   	<p>(这是一封自动产生的email，请勿回复。)</p>
 </div>
 ```
-```java
-try {
-	
-	MailSender mailSender = new MailSenderImpl();
-	MailMessage mailMessage = new MailMessage();
 
-	PebbleEngine engine = new PebbleEngine.Builder().build();
-	PebbleTemplate compiledTemplate = engine.getTemplate("register.html");
-
-	Map<String, Object> context = new HashMap<String, Object>();
-	context.put("username", "biezhi");
-	context.put("email", "admin@java-china.org");
-
-	Writer writer = new StringWriter();
-	compiledTemplate.evaluate(writer, context);
-
-	String output = writer.toString();
-	
-	System.out.println(output);
-	
-	mailMessage
-	.subject("BladeJava 注册邮件")
-	.from("jelly_8090@163.com")
-	.content(output)
-	.addTo("921293209@qq.com");
-	
-	mailSender.debug(true).host("smtp.163.com").username("jelly_8090@163.com").password("###");
-	
-	mailSender.send(mailMessage);
-} catch (MessagingException e) {
-	e.printStackTrace();
-} catch (PebbleException e) {
-	e.printStackTrace();
-} catch (IOException e) {
-	e.printStackTrace();
-}
-```
 ## 问题建议
 
 - 联系我的邮箱：biezhi.me@gmail.com
