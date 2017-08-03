@@ -24,7 +24,7 @@ public class OhMyEmail {
     private OhMyEmail() {
     }
 
-    private static Properties DEFAULT(Boolean debug) {
+    public static Properties defaultConfig(Boolean debug) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.ssl.enable", "true");
@@ -37,13 +37,13 @@ public class OhMyEmail {
     }
 
     public static Properties SMTP_QQ(Boolean debug) {
-        Properties props = DEFAULT(debug);
+        Properties props = defaultConfig(debug);
         props.put("mail.smtp.host", "smtp.qq.com");
         return props;
     }
 
     public static Properties SMTP_163(Boolean debug) {
-        Properties props = DEFAULT(debug);
+        Properties props = defaultConfig(debug);
         props.put("mail.smtp.host", "smtp.163.com");
         return props;
     }
