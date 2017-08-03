@@ -2,8 +2,6 @@
 
 这是一款超简洁的邮件发送库，非常小只有一个Java类，支持链式操作。
 
-> 暂时没有发布到maven仓库，有一些细节未处理. 
-
 ## 特性
 
 - 简洁的邮件发送API
@@ -13,6 +11,18 @@
 - 支持异步发送
 - 支持邮件模板
 - 可能是代码量最小的库了，200多行 😂 非常好维护
+
+## 使用
+
+**maven坐标**
+
+```xml
+<dependency>
+    <groupId>io.github.biezhi</groupId>
+    <artifactId>oh-my-email</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
 
 ## 举个栗子🌰
 
