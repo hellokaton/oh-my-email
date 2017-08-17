@@ -1,6 +1,6 @@
 # oh-my-email
 
-这是一款超简洁的邮件发送库，非常小只有一个Java类，支持链式操作。
+或许是最小的Java邮件发送类库了。
 
 ## 特性
 
@@ -127,4 +127,4 @@ public void testJetx() throws IOException, PebbleException, MessagingException {
 ## 问题建议
 
 - 联系我的邮箱：biezhi.me@gmail.com
-- 我的博客：https://biezhi.me
+- 我的博客：http://biezhi.me
