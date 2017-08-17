@@ -103,7 +103,7 @@ public class OhMyEmail {
     }
 
     public OhMyEmail replyTo(String replyTo) throws MessagingException {
-        msg.setReplyTo(InternetAddress.parse(replyTo.replaceAll(";", ",")));
+        msg.setReplyTo(InternetAddress.parse(replyTo.replace(";", ",")));
         return this;
     }
 
@@ -114,7 +114,7 @@ public class OhMyEmail {
     }
 
     public OhMyEmail to(String to) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to.replaceAll(";", ",")));
+        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to.replace(";", ",")));
         return this;
     }
 
@@ -125,7 +125,7 @@ public class OhMyEmail {
     }
 
     public OhMyEmail cc(String cc) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(cc.replaceAll(";", ",")));
+        msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(cc.replace(";", ",")));
         return this;
     }
 
@@ -136,7 +136,7 @@ public class OhMyEmail {
     }
 
     public OhMyEmail bcc(String bcc) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc.replaceAll(";", ",")));
+        msg.addRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc.replace(";", ",")));
         return this;
     }
 
