@@ -49,13 +49,9 @@ public class OhMyEmail {
     }
 
     public static void config(Properties props, final String username, final String password) {
-        session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-        user = username;
-        msg = new MimeMessage(session);
+        props.setProperty("username", username);
+        props.setProperty("password", password);
+        config(props);
     }
 
     public static void config(Properties props) {
@@ -77,13 +73,7 @@ public class OhMyEmail {
     }
 
     public OhMyEmail from(String nickName) throws MessagingException {
-        try {
-            nickName = MimeUtility.encodeText(nickName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        msg.setFrom(new InternetAddress(nickName + " <" + user + ">"));
-        return this;
+        return from(nickName, user);
     }
 
     public OhMyEmail from(String nickName, String from) throws MessagingException {
@@ -108,35 +98,37 @@ public class OhMyEmail {
     }
 
     public OhMyEmail to(String... to) throws Exception {
-        String result = Arrays.asList(to).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
-        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(result));
-        return this;
+        return addRecipients(to, Message.RecipientType.TO);
     }
 
     public OhMyEmail to(String to) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to.replaceAll(";", ",")));
-        return this;
+        return addRecipient(to, Message.RecipientType.TO);
     }
 
     public OhMyEmail cc(String... cc) throws MessagingException {
-        String result = Arrays.asList(cc).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
-        msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(result));
-        return this;
+        return addRecipients(cc, Message.RecipientType.CC);
     }
 
     public OhMyEmail cc(String cc) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(cc.replaceAll(";", ",")));
-        return this;
+        return addRecipient(cc, Message.RecipientType.CC);
     }
 
     public OhMyEmail bcc(String... bcc) throws MessagingException {
-        String result = Arrays.asList(bcc).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
-        msg.addRecipients(Message.RecipientType.BCC, InternetAddress.parse(result));
-        return this;
+        return addRecipients(bcc, Message.RecipientType.BCC);
     }
 
     public OhMyEmail bcc(String bcc) throws MessagingException {
-        msg.addRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc.replaceAll(";", ",")));
+        return addRecipient(bcc, Message.RecipientType.BCC);
+    }
+
+    private OhMyEmail addRecipients(String[] recipients, Message.RecipientType type) throws MessagingException {
+        String result = Arrays.asList(recipients).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
+        msg.addRecipients(type, InternetAddress.parse(result));
+        return this;
+    }
+
+    private OhMyEmail addRecipient(String recipient, Message.RecipientType type) throws MessagingException {
+        msg.addRecipients(type, InternetAddress.parse(recipient.replace(";", ",")));
         return this;
     }
 
