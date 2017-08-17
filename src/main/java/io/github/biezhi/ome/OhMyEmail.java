@@ -132,7 +132,7 @@ public class OhMyEmail {
     }
 
     public OhMyEmail replyTo(String... replyTo) throws MessagingException {
-        String result = Arrays.asList(replyTo).toString().replace("(^\\[|\\]$)", "").replace(", ", ",");
+        String result = Arrays.asList(replyTo).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
         msg.setReplyTo(InternetAddress.parse(result));
         return this;
     }
