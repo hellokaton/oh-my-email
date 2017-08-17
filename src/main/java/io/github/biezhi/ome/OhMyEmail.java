@@ -8,14 +8,18 @@ import java.io.File;
 import java.util.*;
 
 /**
+ * Oh My email
+ * <p>
+ * May be the smallest mail send library.
+ *
  * @author biezhi
- *         2017/5/30
+ * 2017/5/30
  */
 public class OhMyEmail {
 
-    private static Session session;
+    private static Session     session;
     private static MimeMessage msg;
-    private static String user;
+    private static String      user;
 
     private String text;
     private String html;
@@ -36,18 +40,37 @@ public class OhMyEmail {
         return props;
     }
 
-    public static Properties SMTP_QQ(Boolean debug) {
+    /**
+     * smtp qq
+     *
+     * @param debug enable debug
+     * @return
+     */
+    public static Properties SMTP_QQ(boolean debug) {
         Properties props = defaultConfig(debug);
         props.put("mail.smtp.host", "smtp.qq.com");
         return props;
     }
 
+    /**
+     * smtp 163
+     *
+     * @param debug enable debug
+     * @return
+     */
     public static Properties SMTP_163(Boolean debug) {
         Properties props = defaultConfig(debug);
         props.put("mail.smtp.host", "smtp.163.com");
         return props;
     }
 
+    /**
+     * config username and password
+     *
+     * @param props    email property config
+     * @param username email auth username
+     * @param password email auth password
+     */
     public static void config(Properties props, final String username, final String password) {
         props.setProperty("username", username);
         props.setProperty("password", password);
@@ -66,16 +89,38 @@ public class OhMyEmail {
         msg = new MimeMessage(session);
     }
 
+    /**
+     * set email subject
+     *
+     * @param subject subject title
+     * @return
+     * @throws MessagingException
+     */
     public static OhMyEmail subject(String subject) throws MessagingException {
         OhMyEmail ohMyEmail = new OhMyEmail();
         msg.setSubject(subject, "UTF-8");
         return ohMyEmail;
     }
 
+    /**
+     * set email from
+     *
+     * @param nickName from nickname
+     * @return
+     * @throws MessagingException
+     */
     public OhMyEmail from(String nickName) throws MessagingException {
         return from(nickName, user);
     }
 
+    /**
+     * set email nickname and from user
+     *
+     * @param nickName
+     * @param from
+     * @return
+     * @throws MessagingException
+     */
     public OhMyEmail from(String nickName, String from) throws MessagingException {
         try {
             nickName = MimeUtility.encodeText(nickName);
@@ -87,13 +132,13 @@ public class OhMyEmail {
     }
 
     public OhMyEmail replyTo(String... replyTo) throws MessagingException {
-        String result = Arrays.asList(replyTo).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
+        String result = Arrays.asList(replyTo).toString().replace("(^\\[|\\]$)", "").replace(", ", ",");
         msg.setReplyTo(InternetAddress.parse(result));
         return this;
     }
 
     public OhMyEmail replyTo(String replyTo) throws MessagingException {
-        msg.setReplyTo(InternetAddress.parse(replyTo.replaceAll(";", ",")));
+        msg.setReplyTo(InternetAddress.parse(replyTo.replace(";", ",")));
         return this;
     }
 
@@ -122,7 +167,7 @@ public class OhMyEmail {
     }
 
     private OhMyEmail addRecipients(String[] recipients, Message.RecipientType type) throws MessagingException {
-        String result = Arrays.asList(recipients).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
+        String result = Arrays.asList(recipients).toString().replace("(^\\[|\\]$)", "").replace(", ", ",");
         msg.addRecipients(type, InternetAddress.parse(result));
         return this;
     }
@@ -153,8 +198,8 @@ public class OhMyEmail {
     }
 
     private MimeBodyPart createAttachment(File file, String fileName) throws MessagingException {
-        MimeBodyPart attachmentPart = new MimeBodyPart();
-        FileDataSource fds = new FileDataSource(file);
+        MimeBodyPart   attachmentPart = new MimeBodyPart();
+        FileDataSource fds            = new FileDataSource(file);
         attachmentPart.setDataHandler(new DataHandler(fds));
         try {
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fds.getName()) : MimeUtility.encodeText(fileName));
@@ -169,8 +214,8 @@ public class OhMyEmail {
             throw new NullPointerException("At least one context has to be provided: Text or Html");
 
         MimeMultipart cover;
-        boolean usingAlternative = false;
-        boolean hasAttachments = attachments.size() > 0;
+        boolean       usingAlternative = false;
+        boolean       hasAttachments   = attachments.size() > 0;
 
         if (text != null && html == null) {
             // TEXT ONLY
