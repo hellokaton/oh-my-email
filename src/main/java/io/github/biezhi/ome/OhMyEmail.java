@@ -49,13 +49,9 @@ public class OhMyEmail {
     }
 
     public static void config(Properties props, final String username, final String password) {
-        session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-        user = username;
-        msg = new MimeMessage(session);
+        props.setProperty("username", username);
+        props.setProperty("password", password);
+        config(props);
     }
 
     public static void config(Properties props) {
