@@ -4,7 +4,7 @@
 
 [![Build Status](https://img.shields.io/travis/biezhi/oh-my-email.svg?style=flat-square)](https://travis-ci.org/biezhi/oh-my-email)
 [![codecov.io](https://img.shields.io/codecov/c/github/biezhi/oh-my-email/master.svg?style=flat-square)](http://codecov.io/github/biezhi/oh-my-email?branch=master)
-[![maven-central](https://img.shields.io/maven-central/v/com.bladejava/oh-my-email.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Coh-my-email)
+[![maven-central](https://img.shields.io/maven-central/v/io.github.biezhi/oh-my-email.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Coh-my-email)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 ## 特性
