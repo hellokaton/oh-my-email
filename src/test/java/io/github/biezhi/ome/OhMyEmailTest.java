@@ -1,4 +1,4 @@
-package com.junicorn.jmail;
+package io.github.biezhi.ome;
 
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
@@ -29,7 +29,7 @@ public class OhMyEmailTest {
     @Before
     public void before() throws GeneralSecurityException {
         // 配置，一次即可
-        OhMyEmail.config(SMTP_QQ(false), "biezhi.me@qq.com", "your#pass#word");
+        OhMyEmail.config(SMTP_QQ(false), "xxx@qq.com", "*******");
     }
 
     @Test
@@ -37,8 +37,8 @@ public class OhMyEmailTest {
         OhMyEmail.subject("这是一封测试TEXT邮件")
                 .from("王爵的QQ邮箱")
                 .to("921293209@qq.com")
-                .text("信件内容")
-                .send();
+                .text("信件内容");
+//                .send();
     }
 
     @Test
@@ -46,8 +46,8 @@ public class OhMyEmailTest {
         OhMyEmail.subject("这是一封测试HTML邮件")
                 .from("王爵的QQ邮箱")
                 .to("921293209@qq.com")
-                .html("<h1 font=red>信件内容</h1>")
-                .send();
+                .html("<h1 font=red>信件内容</h1>");
+//                .send();
     }
 
     @Test
@@ -56,8 +56,8 @@ public class OhMyEmailTest {
                 .from("王爵的QQ邮箱")
                 .to("921293209@qq.com")
                 .html("<h1 font=red>信件内容</h1>")
-                .attach(new File("/Users/biezhi/Downloads/hello.jpeg"), "测试图片.jpeg")
-                .send();
+                .attach(new File("/Users/biezhi/Downloads/hello.jpeg"), "测试图片.jpeg");
+//                .send();
     }
 
     @Test
@@ -78,8 +78,8 @@ public class OhMyEmailTest {
         OhMyEmail.subject("这是一封测试Pebble模板邮件")
                 .from("王爵的QQ邮箱")
                 .to("921293209@qq.com")
-                .html(output)
-                .send();
+                .html(output);
+//                .send();
     }
 
     @Test
@@ -100,8 +100,8 @@ public class OhMyEmailTest {
         OhMyEmail.subject("这是一封测试Jetx模板邮件")
                 .from("王爵的QQ邮箱")
                 .to("921293209@qq.com")
-                .html(output)
-                .send();
+                .html(output);
+//                .send();
     }
 
 }

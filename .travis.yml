@@ -1,0 +1,12 @@
+language: java
+
+jdk:
+  - oraclejdk6
+
+before_install:
+    - export TZ='Asia/Shanghai'
+
+script: "mvn clean cobertura:cobertura"
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
