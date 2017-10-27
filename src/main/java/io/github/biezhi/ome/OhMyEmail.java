@@ -168,12 +168,12 @@ public class OhMyEmail {
 
     private OhMyEmail addRecipients(String[] recipients, Message.RecipientType type) throws MessagingException {
         String result = Arrays.asList(recipients).toString().replace("(^\\[|\\]$)", "").replace(", ", ",");
-        msg.addRecipients(type, InternetAddress.parse(result));
+        msg.setRecipients(type, InternetAddress.parse(result));
         return this;
     }
 
     private OhMyEmail addRecipient(String recipient, Message.RecipientType type) throws MessagingException {
-        msg.addRecipients(type, InternetAddress.parse(recipient.replace(";", ",")));
+        msg.setRecipients(type, InternetAddress.parse(recipient.replace(";", ",")));
         return this;
     }
 
