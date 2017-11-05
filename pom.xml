@@ -4,7 +4,7 @@
 
     <groupId>io.github.biezhi</groupId>
     <artifactId>oh-my-email</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
 
     <name>oh-my-email</name>
@@ -152,21 +152,6 @@
                                 <configuration>
                                     <additionalparam>-Xdoclint:none</additionalparam>
                                 </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!--  Gpg Signature  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>

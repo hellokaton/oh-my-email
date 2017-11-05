@@ -17,9 +17,9 @@ import java.util.*;
  */
 public class OhMyEmail {
 
-    private static Session     session;
+    private static Session session;
     private static MimeMessage msg;
-    private static String      user;
+    private static String user;
 
     private String text;
     private String html;
@@ -37,6 +37,18 @@ public class OhMyEmail {
         props.put("mail.debug", null != debug ? debug.toString() : "false");
         props.put("mail.smtp.timeout", "10000");
         props.put("mail.smtp.port", "465");
+        return props;
+    }
+
+    /**
+     * smtp entnterprise qq
+     *
+     * @param debug
+     * @return
+     */
+    public static Properties SMTP_ENT_QQ(boolean debug) {
+        Properties props = defaultConfig(debug);
+        props.put("mail.smtp.host", "smtp.exmail.qq.com");
         return props;
     }
 
@@ -168,12 +180,12 @@ public class OhMyEmail {
 
     private OhMyEmail addRecipients(String[] recipients, Message.RecipientType type) throws MessagingException {
         String result = Arrays.asList(recipients).toString().replace("(^\\[|\\]$)", "").replace(", ", ",");
-        msg.addRecipients(type, InternetAddress.parse(result));
+        msg.setRecipients(type, InternetAddress.parse(result));
         return this;
     }
 
     private OhMyEmail addRecipient(String recipient, Message.RecipientType type) throws MessagingException {
-        msg.addRecipients(type, InternetAddress.parse(recipient.replace(";", ",")));
+        msg.setRecipients(type, InternetAddress.parse(recipient.replace(";", ",")));
         return this;
     }
 
@@ -198,8 +210,8 @@ public class OhMyEmail {
     }
 
     private MimeBodyPart createAttachment(File file, String fileName) throws MessagingException {
-        MimeBodyPart   attachmentPart = new MimeBodyPart();
-        FileDataSource fds            = new FileDataSource(file);
+        MimeBodyPart attachmentPart = new MimeBodyPart();
+        FileDataSource fds = new FileDataSource(file);
         attachmentPart.setDataHandler(new DataHandler(fds));
         try {
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fds.getName()) : MimeUtility.encodeText(fileName));
@@ -214,8 +226,8 @@ public class OhMyEmail {
             throw new NullPointerException("At least one context has to be provided: Text or Html");
 
         MimeMultipart cover;
-        boolean       usingAlternative = false;
-        boolean       hasAttachments   = attachments.size() > 0;
+        boolean usingAlternative = false;
+        boolean hasAttachments = attachments.size() > 0;
 
         if (text != null && html == null) {
             // TEXT ONLY
