@@ -18,11 +18,11 @@ import java.util.*;
 public class OhMyEmail {
 
     private static Session session;
-    private static MimeMessage msg;
-    private static String user;
+    private static String  user;
 
-    private String text;
-    private String html;
+    private MimeMessage msg;
+    private String      text;
+    private String      html;
     private List<MimeBodyPart> attachments = new ArrayList<MimeBodyPart>();
 
     private OhMyEmail() {
@@ -98,7 +98,6 @@ public class OhMyEmail {
                 return new PasswordAuthentication(username, password);
             }
         });
-        msg = new MimeMessage(session);
     }
 
     /**
@@ -110,7 +109,8 @@ public class OhMyEmail {
      */
     public static OhMyEmail subject(String subject) throws MessagingException {
         OhMyEmail ohMyEmail = new OhMyEmail();
-        msg.setSubject(subject, "UTF-8");
+        ohMyEmail.msg = new MimeMessage(session);
+        ohMyEmail.msg.setSubject(subject, "UTF-8");
         return ohMyEmail;
     }
 
@@ -210,8 +210,8 @@ public class OhMyEmail {
     }
 
     private MimeBodyPart createAttachment(File file, String fileName) throws MessagingException {
-        MimeBodyPart attachmentPart = new MimeBodyPart();
-        FileDataSource fds = new FileDataSource(file);
+        MimeBodyPart   attachmentPart = new MimeBodyPart();
+        FileDataSource fds            = new FileDataSource(file);
         attachmentPart.setDataHandler(new DataHandler(fds));
         try {
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fds.getName()) : MimeUtility.encodeText(fileName));
@@ -226,8 +226,8 @@ public class OhMyEmail {
             throw new NullPointerException("At least one context has to be provided: Text or Html");
 
         MimeMultipart cover;
-        boolean usingAlternative = false;
-        boolean hasAttachments = attachments.size() > 0;
+        boolean       usingAlternative = false;
+        boolean       hasAttachments   = attachments.size() > 0;
 
         if (text != null && html == null) {
             // TEXT ONLY
