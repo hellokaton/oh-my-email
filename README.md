@@ -6,6 +6,8 @@
 [![codecov.io](https://img.shields.io/codecov/c/github/biezhi/oh-my-email/master.svg?style=flat-square)](http://codecov.io/github/biezhi/oh-my-email?branch=master)
 [![maven-central](https://img.shields.io/maven-central/v/io.github.biezhi/oh-my-email.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Coh-my-email)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![@biezhi on zhihu](https://img.shields.io/badge/zhihu-%40biezhi-red.svg)](https://www.zhihu.com/people/biezhi)
+[![](https://img.shields.io/github/followers/biezhi.svg?style=social&label=Follow%20Me)](https://github.com/biezhi)
 
 ## 特性
 
@@ -131,5 +133,4 @@ public void testJetx() throws IOException, PebbleException, MessagingException {
 
 ## 问题建议
 
-- 联系我的邮箱：biezhi.me@gmail.com
-- 我的博客：http://biezhi.me
+- 我的邮箱：biezhi.me#gmail.com
