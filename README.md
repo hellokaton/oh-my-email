@@ -3,11 +3,11 @@
 或许是最小的Java邮件发送类库了。
 
 [![Build Status](https://img.shields.io/travis/biezhi/oh-my-email.svg?style=flat-square)](https://travis-ci.org/biezhi/oh-my-email)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ef611f3fa044c8f8d8fc31cf0acd8a7)](https://www.codacy.com/app/biezhi/oh-my-email?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=biezhi/oh-my-email&amp;utm_campaign=Badge_Grade)
 [![codecov.io](https://img.shields.io/codecov/c/github/biezhi/oh-my-email/master.svg?style=flat-square)](http://codecov.io/github/biezhi/oh-my-email?branch=master)
 [![maven-central](https://img.shields.io/maven-central/v/io.github.biezhi/oh-my-email.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Coh-my-email)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![@biezhi on zhihu](https://img.shields.io/badge/zhihu-%40biezhi-red.svg)](https://www.zhihu.com/people/biezhi)
-[![](https://img.shields.io/github/followers/biezhi.svg?style=social&label=Follow%20Me)](https://github.com/biezhi)
+[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/biezhii.svg?style=social&label=Follow%20Twitter)](https://twitter.com/biezhii)
 
 ## 特性
 
@@ -27,7 +27,7 @@
 <dependency>
     <groupId>io.github.biezhi</groupId>
     <artifactId>oh-my-email</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 </dependency>
 ```
 
@@ -37,7 +37,7 @@
 @Before
 public void before() throws GeneralSecurityException {
     // 配置，一次即可
-    OhMyEmail.config(SMTP_QQ(), "biezhi.me@qq.com", "your@password");
+    OhMyEmail.config(SMTP_QQ(), "xiaojiejie@qq.com", "your@password");
 }
 
 @Test
