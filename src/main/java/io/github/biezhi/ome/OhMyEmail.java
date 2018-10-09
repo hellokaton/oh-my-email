@@ -267,8 +267,9 @@ public class OhMyEmail {
     }
 
     public void send() throws SendMailException {
-        if (text == null && html == null)
-            throw new NullPointerException("At least one context has to be provided: Text or Html");
+        if (text == null && html == null) {
+            throw new IllegalArgumentException("At least one context has to be provided: Text or Html");
+        }
 
         MimeMultipart cover;
         boolean       usingAlternative = false;
