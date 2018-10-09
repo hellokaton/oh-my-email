@@ -8,7 +8,6 @@ import jetbrick.template.JetTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -41,7 +40,7 @@ public class OhMyEmailTest {
     }
 
     @Test
-    public void testSendText() throws MessagingException {
+    public void testSendText() throws SendMailException {
         OhMyEmail.subject("这是一封测试TEXT邮件")
                 .from("小姐姐的邮箱")
                 .to(TO_EMAIL)
@@ -50,7 +49,7 @@ public class OhMyEmailTest {
     }
 
     @Test
-    public void testSendHtml() throws MessagingException {
+    public void testSendHtml() throws SendMailException {
         OhMyEmail.subject("这是一封测试HTML邮件")
                 .from("小姐姐的邮箱")
                 .to(TO_EMAIL)
@@ -59,7 +58,7 @@ public class OhMyEmailTest {
     }
 
     @Test
-    public void testSendAttach() throws MessagingException {
+    public void testSendAttach() throws SendMailException {
         OhMyEmail.subject("这是一封测试附件邮件")
                 .from("小姐姐的邮箱")
                 .to(TO_EMAIL)
@@ -69,7 +68,7 @@ public class OhMyEmailTest {
     }
 
     @Test
-    public void testSendAttachURL() throws MessagingException {
+    public void testSendAttachURL() throws SendMailException {
         try {
             OhMyEmail.subject("这是一封测试网络资源作为附件的邮件")
                     .from("小姐姐的邮箱")
@@ -84,7 +83,7 @@ public class OhMyEmailTest {
     }
 
     @Test
-    public void testPebble() throws IOException, PebbleException, MessagingException {
+    public void testPebble() throws IOException, PebbleException, SendMailException {
         PebbleEngine   engine           = new PebbleEngine.Builder().build();
         PebbleTemplate compiledTemplate = engine.getTemplate("register.html");
 
@@ -106,7 +105,7 @@ public class OhMyEmailTest {
     }
 
     @Test
-    public void testJetx() throws MessagingException {
+    public void testJetx() throws SendMailException {
         JetEngine   engine   = JetEngine.create();
         JetTemplate template = engine.getTemplate("/register.jetx");
 

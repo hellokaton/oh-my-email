@@ -106,10 +106,14 @@ public class OhMyEmail {
      *
      * @param subject subject title
      */
-    public static OhMyEmail subject(String subject) throws MessagingException {
+    public static OhMyEmail subject(String subject) throws SendMailException {
         OhMyEmail ohMyEmail = new OhMyEmail();
         ohMyEmail.msg = new MimeMessage(session);
-        ohMyEmail.msg.setSubject(subject, "UTF-8");
+        try {
+            ohMyEmail.msg.setSubject(subject, "UTF-8");
+        } catch (Exception e) {
+            throw new SendMailException(e);
+        }
         return ohMyEmail;
     }
 
@@ -118,7 +122,7 @@ public class OhMyEmail {
      *
      * @param nickName from nickname
      */
-    public OhMyEmail from(String nickName) throws MessagingException {
+    public OhMyEmail from(String nickName) throws SendMailException {
         return from(nickName, user);
     }
 
@@ -128,45 +132,73 @@ public class OhMyEmail {
      * @param nickName from nickname
      * @param from     from email
      */
-    public OhMyEmail from(String nickName, String from) throws MessagingException {
+    public OhMyEmail from(String nickName, String from) throws SendMailException {
         try {
-            nickName = MimeUtility.encodeText(nickName);
+            String encodeNickName = MimeUtility.encodeText(nickName);
+            msg.setFrom(new InternetAddress(encodeNickName + " <" + from + ">"));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SendMailException(e);
         }
-        msg.setFrom(new InternetAddress(nickName + " <" + from + ">"));
         return this;
     }
 
-    public OhMyEmail replyTo(String... replyTo) throws MessagingException {
+    public OhMyEmail replyTo(String... replyTo) throws SendMailException {
         String result = Arrays.asList(replyTo).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
-        msg.setReplyTo(InternetAddress.parse(result));
+        try {
+            msg.setReplyTo(InternetAddress.parse(result));
+        } catch (Exception e) {
+            throw new SendMailException(e);
+        }
         return this;
     }
 
-    public OhMyEmail replyTo(String replyTo) throws MessagingException {
-        msg.setReplyTo(InternetAddress.parse(replyTo.replace(";", ",")));
+    public OhMyEmail replyTo(String replyTo) throws SendMailException {
+        try {
+            msg.setReplyTo(InternetAddress.parse(replyTo.replace(";", ",")));
+        } catch (Exception e) {
+            throw new SendMailException(e);
+        }
         return this;
     }
 
-    public OhMyEmail to(String... to) throws Exception {
-        return addRecipients(to, Message.RecipientType.TO);
+    public OhMyEmail to(String... to) throws SendMailException {
+        try {
+            return addRecipients(to, Message.RecipientType.TO);
+        } catch (MessagingException e) {
+            throw new SendMailException(e);
+        }
     }
 
-    public OhMyEmail to(String to) throws MessagingException {
-        return addRecipient(to, Message.RecipientType.TO);
+    public OhMyEmail to(String to) throws SendMailException {
+        try {
+            return addRecipient(to, Message.RecipientType.TO);
+        } catch (MessagingException e) {
+            throw new SendMailException(e);
+        }
     }
 
-    public OhMyEmail cc(String... cc) throws MessagingException {
-        return addRecipients(cc, Message.RecipientType.CC);
+    public OhMyEmail cc(String... cc) throws SendMailException {
+        try {
+            return addRecipients(cc, Message.RecipientType.CC);
+        } catch (MessagingException e) {
+            throw new SendMailException(e);
+        }
     }
 
-    public OhMyEmail cc(String cc) throws MessagingException {
-        return addRecipient(cc, Message.RecipientType.CC);
+    public OhMyEmail cc(String cc) throws SendMailException {
+        try {
+            return addRecipient(cc, Message.RecipientType.CC);
+        } catch (MessagingException e) {
+            throw new SendMailException(e);
+        }
     }
 
-    public OhMyEmail bcc(String... bcc) throws MessagingException {
-        return addRecipients(bcc, Message.RecipientType.BCC);
+    public OhMyEmail bcc(String... bcc) throws SendMailException {
+        try {
+            return addRecipients(bcc, Message.RecipientType.BCC);
+        } catch (MessagingException e) {
+            throw new SendMailException(e);
+        }
     }
 
     public OhMyEmail bcc(String bcc) throws MessagingException {
@@ -194,48 +226,47 @@ public class OhMyEmail {
         return this;
     }
 
-    public OhMyEmail attach(File file) throws MessagingException {
+    public OhMyEmail attach(File file) throws SendMailException {
         attachments.add(createAttachment(file, null));
         return this;
     }
 
-    public OhMyEmail attach(File file, String fileName) throws MessagingException {
+    public OhMyEmail attach(File file, String fileName) throws SendMailException {
         attachments.add(createAttachment(file, fileName));
         return this;
     }
 
-    public OhMyEmail attachURL(URL url, String fileName) throws MessagingException {
+    public OhMyEmail attachURL(URL url, String fileName) throws SendMailException {
         attachments.add(createURLAttachment(url, fileName));
         return this;
     }
 
-    private MimeBodyPart createAttachment(File file, String fileName) throws MessagingException {
+    private MimeBodyPart createAttachment(File file, String fileName) throws SendMailException {
         MimeBodyPart   attachmentPart = new MimeBodyPart();
         FileDataSource fds            = new FileDataSource(file);
-        attachmentPart.setDataHandler(new DataHandler(fds));
         try {
+            attachmentPart.setDataHandler(new DataHandler(fds));
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fds.getName()) : MimeUtility.encodeText(fileName));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SendMailException(e);
         }
         return attachmentPart;
     }
 
-    private MimeBodyPart createURLAttachment(URL url, String fileName) throws MessagingException {
+    private MimeBodyPart createURLAttachment(URL url, String fileName) throws SendMailException {
         MimeBodyPart attachmentPart = new MimeBodyPart();
 
         DataHandler dataHandler = new DataHandler(url);
-
-        attachmentPart.setDataHandler(dataHandler);
         try {
+            attachmentPart.setDataHandler(dataHandler);
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fileName) : MimeUtility.encodeText(fileName));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SendMailException(e);
         }
         return attachmentPart;
     }
 
-    public void send() throws MessagingException {
+    public void send() throws SendMailException {
         if (text == null && html == null)
             throw new NullPointerException("At least one context has to be provided: Text or Html");
 
@@ -243,35 +274,39 @@ public class OhMyEmail {
         boolean       usingAlternative = false;
         boolean       hasAttachments   = attachments.size() > 0;
 
-        if (text != null && html == null) {
-            // TEXT ONLY
-            cover = new MimeMultipart("mixed");
-            cover.addBodyPart(textPart());
-        } else if (text == null && html != null) {
-            // HTML ONLY
-            cover = new MimeMultipart("mixed");
-            cover.addBodyPart(htmlPart());
-        } else {
-            // HTML + TEXT
-            cover = new MimeMultipart("alternative");
-            cover.addBodyPart(textPart());
-            cover.addBodyPart(htmlPart());
-            usingAlternative = true;
-        }
+        try {
+            if (text != null && html == null) {
+                // TEXT ONLY
+                cover = new MimeMultipart("mixed");
+                cover.addBodyPart(textPart());
+            } else if (text == null && html != null) {
+                // HTML ONLY
+                cover = new MimeMultipart("mixed");
+                cover.addBodyPart(htmlPart());
+            } else {
+                // HTML + TEXT
+                cover = new MimeMultipart("alternative");
+                cover.addBodyPart(textPart());
+                cover.addBodyPart(htmlPart());
+                usingAlternative = true;
+            }
 
-        MimeMultipart content = cover;
-        if (usingAlternative && hasAttachments) {
-            content = new MimeMultipart("mixed");
-            content.addBodyPart(toBodyPart(cover));
-        }
+            MimeMultipart content = cover;
+            if (usingAlternative && hasAttachments) {
+                content = new MimeMultipart("mixed");
+                content.addBodyPart(toBodyPart(cover));
+            }
 
-        for (MimeBodyPart attachment : attachments) {
-            content.addBodyPart(attachment);
-        }
+            for (MimeBodyPart attachment : attachments) {
+                content.addBodyPart(attachment);
+            }
 
-        msg.setContent(content);
-        msg.setSentDate(new Date());
-        Transport.send(msg);
+            msg.setContent(content);
+            msg.setSentDate(new Date());
+            Transport.send(msg);
+        } catch (Exception e) {
+            throw new SendMailException(e);
+        }
     }
 
     private MimeBodyPart toBodyPart(MimeMultipart cover) throws MessagingException {
