@@ -69,6 +69,21 @@ public void testSendAttach() throws MessagingException {
 }
 
 @Test
+public void testSendAttachURL() throws MessagingException {
+    try {
+        OhMyEmail.subject("这是一封测试网络资源作为附件的邮件")
+                .from("王爵的QQ邮箱")
+                .to("921293209@qq.com")
+                .html("<h1 font=red>信件内容</h1>")
+                .attachURL(new URL("https://avatars1.githubusercontent.com/u/2784452?s=40&v=4"), "测试图片.jpeg")
+                .send();
+    } catch (MalformedURLException e) {
+        e.printStackTrace();
+    }
+}
+
+
+@Test
 public void testPebble() throws IOException, PebbleException, MessagingException {
     PebbleEngine engine = new PebbleEngine.Builder().build();
     PebbleTemplate compiledTemplate = engine.getTemplate("register.html");
