@@ -23,13 +23,18 @@ import java.util.Map;
 import static io.github.biezhi.ome.OhMyEmail.SMTP_QQ;
 
 /**
+ * 发送邮件测试
+ *
  * @author biezhi
- *         2017/5/30
+ * 2017/5/30
  */
 public class OhMyEmailTest {
 
+    // 该邮箱修改为你需要测试的邮箱地址
+    private static final String TO_EMAIL = "xiaojiejie@gmail.com";
+
     @Before
-    public void before() throws GeneralSecurityException {
+    public void before() {
         // 配置，一次即可
         OhMyEmail.config(SMTP_QQ(false), "xxx@qq.com", "*******");
     }
@@ -37,37 +42,37 @@ public class OhMyEmailTest {
     @Test
     public void testSendText() throws MessagingException {
         OhMyEmail.subject("这是一封测试TEXT邮件")
-                .from("王爵的QQ邮箱")
-                .to("921293209@qq.com")
-                .text("信件内容");
-//                .send();
+                .from("小姐姐的邮箱")
+                .to(TO_EMAIL)
+                .text("信件内容")
+                .send();
     }
 
     @Test
     public void testSendHtml() throws MessagingException {
         OhMyEmail.subject("这是一封测试HTML邮件")
-                .from("王爵的QQ邮箱")
-                .to("921293209@qq.com")
-                .html("<h1 font=red>信件内容</h1>");
-//                .send();
+                .from("小姐姐的邮箱")
+                .to(TO_EMAIL)
+                .html("<h1 font=red>信件内容</h1>")
+                .send();
     }
 
     @Test
     public void testSendAttach() throws MessagingException {
         OhMyEmail.subject("这是一封测试附件邮件")
-                .from("王爵的QQ邮箱")
-                .to("921293209@qq.com")
+                .from("小姐姐的邮箱")
+                .to(TO_EMAIL)
                 .html("<h1 font=red>信件内容</h1>")
-                .attach(new File("/Users/biezhi/Downloads/hello.jpeg"), "测试图片.jpeg");
-//                .send();
+                .attach(new File("/Users/biezhi/Downloads/hello.jpeg"), "测试图片.jpeg")
+                .send();
     }
 
     @Test
     public void testSendAttachURL() throws MessagingException {
         try {
             OhMyEmail.subject("这是一封测试网络资源作为附件的邮件")
-                    .from("王爵的QQ邮箱")
-                    .to("921293209@qq.com")
+                    .from("小姐姐的邮箱")
+                    .to(TO_EMAIL)
                     .html("<h1 font=red>信件内容</h1>")
                     .attachURL(new URL("https://avatars1.githubusercontent.com/u/2784452?s=40&v=4"), "测试图片.jpeg")
                     .send();
@@ -79,12 +84,12 @@ public class OhMyEmailTest {
 
     @Test
     public void testPebble() throws IOException, PebbleException, MessagingException {
-        PebbleEngine engine = new PebbleEngine.Builder().build();
+        PebbleEngine   engine           = new PebbleEngine.Builder().build();
         PebbleTemplate compiledTemplate = engine.getTemplate("register.html");
 
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("username", "biezhi");
-        context.put("email", "admin@java-china.org");
+        context.put("email", "admin@biezhi.me");
 
         Writer writer = new StringWriter();
         compiledTemplate.evaluate(writer, context);
@@ -93,21 +98,21 @@ public class OhMyEmailTest {
         System.out.println(output);
 
         OhMyEmail.subject("这是一封测试Pebble模板邮件")
-                .from("王爵的QQ邮箱")
-                .to("921293209@qq.com")
-                .html(output);
-//                .send();
+                .from("小姐姐的邮箱")
+                .to(TO_EMAIL)
+                .html(output)
+                .send();
     }
 
     @Test
-    public void testJetx() throws IOException, PebbleException, MessagingException {
-        JetEngine engine = JetEngine.create();
+    public void testJetx() throws MessagingException {
+        JetEngine   engine   = JetEngine.create();
         JetTemplate template = engine.getTemplate("/register.jetx");
 
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("username", "biezhi");
-        context.put("email", "admin@java-china.org");
-        context.put("url", "<a href='http://java-china.org'>https://java-china.org/active/asdkjajdasjdkaweoi</a>");
+        context.put("email", "admin@biezhi.me");
+        context.put("url", "<a href='http://biezhi.me'>https://biezhi.me/active/asdkjajdasjdkaweoi</a>");
 
         StringWriter writer = new StringWriter();
         template.render(context, writer);
@@ -115,10 +120,10 @@ public class OhMyEmailTest {
         System.out.println(output);
 
         OhMyEmail.subject("这是一封测试Jetx模板邮件")
-                .from("王爵的QQ邮箱")
-                .to("921293209@qq.com")
-                .html(output);
-//                .send();
+                .from("小姐姐的邮箱")
+                .to(TO_EMAIL)
+                .html(output)
+                .send();
     }
 
 }
