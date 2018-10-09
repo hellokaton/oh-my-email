@@ -5,7 +5,6 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -22,9 +21,9 @@ public class OhMyEmail {
     private static Session session;
     private static String  user;
 
-    private MimeMessage msg;
-    private String      text;
-    private String      html;
+    private MimeMessage        msg;
+    private String             text;
+    private String             html;
     private List<MimeBodyPart> attachments = new ArrayList<MimeBodyPart>();
 
     private OhMyEmail() {
@@ -106,8 +105,6 @@ public class OhMyEmail {
      * set email subject
      *
      * @param subject subject title
-     * @return
-     * @throws MessagingException
      */
     public static OhMyEmail subject(String subject) throws MessagingException {
         OhMyEmail ohMyEmail = new OhMyEmail();
@@ -120,8 +117,6 @@ public class OhMyEmail {
      * set email from
      *
      * @param nickName from nickname
-     * @return
-     * @throws MessagingException
      */
     public OhMyEmail from(String nickName) throws MessagingException {
         return from(nickName, user);
@@ -130,10 +125,8 @@ public class OhMyEmail {
     /**
      * set email nickname and from user
      *
-     * @param nickName
-     * @param from
-     * @return
-     * @throws MessagingException
+     * @param nickName from nickname
+     * @param from     from email
      */
     public OhMyEmail from(String nickName, String from) throws MessagingException {
         try {
@@ -217,8 +210,8 @@ public class OhMyEmail {
     }
 
     private MimeBodyPart createAttachment(File file, String fileName) throws MessagingException {
-        MimeBodyPart attachmentPart = new MimeBodyPart();
-        FileDataSource fds = new FileDataSource(file);
+        MimeBodyPart   attachmentPart = new MimeBodyPart();
+        FileDataSource fds            = new FileDataSource(file);
         attachmentPart.setDataHandler(new DataHandler(fds));
         try {
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fds.getName()) : MimeUtility.encodeText(fileName));

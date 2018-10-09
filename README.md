@@ -1,6 +1,6 @@
 # oh-my-email
 
-或许是最小的Java邮件发送类库了。
+或许是最小的 Java 邮件发送类库了。
 
 [![Build Status](https://img.shields.io/travis/biezhi/oh-my-email.svg?style=flat-square)](https://travis-ci.org/biezhi/oh-my-email)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ef611f3fa044c8f8d8fc31cf0acd8a7)](https://www.codacy.com/app/biezhi/oh-my-email?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=biezhi/oh-my-email&amp;utm_campaign=Badge_Grade)

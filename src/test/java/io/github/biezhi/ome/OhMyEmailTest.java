@@ -3,7 +3,6 @@ package io.github.biezhi.ome;
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
-import io.github.biezhi.ome.OhMyEmail;
 import jetbrick.template.JetEngine;
 import jetbrick.template.JetTemplate;
 import org.junit.Before;
@@ -16,10 +15,10 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.github.biezhi.ome.OhMyEmail.SMTP_ENT_QQ;
 import static io.github.biezhi.ome.OhMyEmail.SMTP_QQ;
 
 /**
@@ -37,6 +36,8 @@ public class OhMyEmailTest {
     public void before() {
         // 配置，一次即可
         OhMyEmail.config(SMTP_QQ(false), "xxx@qq.com", "*******");
+        // 如果是企业邮箱则使用下面配置
+        OhMyEmail.config(SMTP_ENT_QQ(false), "xxx@qq.com", "*******");
     }
 
     @Test
