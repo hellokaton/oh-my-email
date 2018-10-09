@@ -5,6 +5,8 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -209,12 +211,31 @@ public class OhMyEmail {
         return this;
     }
 
+    public OhMyEmail attachURL(URL url, String fileName) throws MessagingException {
+        attachments.add(createURLAttachment(url, fileName));
+        return this;
+    }
+
     private MimeBodyPart createAttachment(File file, String fileName) throws MessagingException {
-        MimeBodyPart   attachmentPart = new MimeBodyPart();
-        FileDataSource fds            = new FileDataSource(file);
+        MimeBodyPart attachmentPart = new MimeBodyPart();
+        FileDataSource fds = new FileDataSource(file);
         attachmentPart.setDataHandler(new DataHandler(fds));
         try {
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fds.getName()) : MimeUtility.encodeText(fileName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return attachmentPart;
+    }
+
+    private MimeBodyPart createURLAttachment(URL url, String fileName) throws MessagingException {
+        MimeBodyPart attachmentPart = new MimeBodyPart();
+
+        DataHandler dataHandler = new DataHandler(url);
+
+        attachmentPart.setDataHandler(dataHandler);
+        try {
+            attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fileName) : MimeUtility.encodeText(fileName));
         } catch (Exception e) {
             e.printStackTrace();
         }
