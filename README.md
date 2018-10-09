@@ -2,6 +2,7 @@
 
 或许是最小的Java邮件发送类库了。
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9a8427ddb5cf42ee89a2adad5193238c)](https://app.codacy.com/app/biezhi/oh-my-email?utm_source=github.com&utm_medium=referral&utm_content=biezhi/oh-my-email&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://img.shields.io/travis/biezhi/oh-my-email.svg?style=flat-square)](https://travis-ci.org/biezhi/oh-my-email)
 [![codecov.io](https://img.shields.io/codecov/c/github/biezhi/oh-my-email/master.svg?style=flat-square)](http://codecov.io/github/biezhi/oh-my-email?branch=master)
 [![maven-central](https://img.shields.io/maven-central/v/io.github.biezhi/oh-my-email.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Coh-my-email)
