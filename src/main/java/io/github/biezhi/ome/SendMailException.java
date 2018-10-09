@@ -1,6 +1,8 @@
 package io.github.biezhi.ome;
 
 /**
+ * Send Email Exception
+ *
  * @author biezhi
  * @date 2018/10/9
  */
