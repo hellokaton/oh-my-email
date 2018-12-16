@@ -33,7 +33,6 @@ public class OhMyEmail {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.debug", "false");
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.debug", null != debug ? debug.toString() : "false");
         props.put("mail.smtp.timeout", "10000");
