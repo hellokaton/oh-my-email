@@ -19,11 +19,11 @@ import java.util.*;
 public class OhMyEmail {
 
     private static Session session;
-    private static String  user;
+    private static String user;
 
-    private MimeMessage        msg;
-    private String             text;
-    private String             html;
+    private MimeMessage msg;
+    private String text;
+    private String html;
     private List<MimeBodyPart> attachments = new ArrayList<MimeBodyPart>();
 
     private OhMyEmail() {
@@ -200,8 +200,12 @@ public class OhMyEmail {
         }
     }
 
-    public OhMyEmail bcc(String bcc) throws MessagingException {
-        return addRecipient(bcc, Message.RecipientType.BCC);
+    public OhMyEmail bcc(String bcc) throws SendMailException {
+        try {
+            return addRecipient(bcc, Message.RecipientType.BCC);
+        } catch (MessagingException e) {
+            throw new SendMailException(e);
+        }
     }
 
     private OhMyEmail addRecipients(String[] recipients, Message.RecipientType type) throws MessagingException {
@@ -241,8 +245,8 @@ public class OhMyEmail {
     }
 
     private MimeBodyPart createAttachment(File file, String fileName) throws SendMailException {
-        MimeBodyPart   attachmentPart = new MimeBodyPart();
-        FileDataSource fds            = new FileDataSource(file);
+        MimeBodyPart attachmentPart = new MimeBodyPart();
+        FileDataSource fds = new FileDataSource(file);
         try {
             attachmentPart.setDataHandler(new DataHandler(fds));
             attachmentPart.setFileName(null == fileName ? MimeUtility.encodeText(fds.getName()) : MimeUtility.encodeText(fileName));
@@ -271,8 +275,8 @@ public class OhMyEmail {
         }
 
         MimeMultipart cover;
-        boolean       usingAlternative = false;
-        boolean       hasAttachments   = attachments.size() > 0;
+        boolean usingAlternative = false;
+        boolean hasAttachments = attachments.size() > 0;
 
         try {
             if (text != null && html == null) {
