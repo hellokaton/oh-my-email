@@ -209,7 +209,7 @@ public class OhMyEmail {
     }
 
     private OhMyEmail addRecipients(String[] recipients, Message.RecipientType type) throws MessagingException {
-        String result = Arrays.asList(recipients).toString().replace("(^\\[|\\]$)", "").replace(", ", ",");
+        String result = Arrays.asList(recipients).toString().replaceAll("(^\\[|\\]$)", "").replace(", ", ",");
         msg.setRecipients(type, InternetAddress.parse(result));
         return this;
     }
